@@ -26,42 +26,45 @@ class _GeoLocatorLocationUpdatesState extends State<GeoLocatorLocationUpdates> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-            onPressed: () {
-              Geolocator.getPositionStream(locationSettings: _appleSettings).listen((position) {
-                debugPrint("position: ${position.toJson()}");
-                debugPrint('''\n
-                        Latitude:  ${position.latitude}
-                        Longitude: ${position.longitude}
-                        Altitude: ${position.altitude}
-                        Accuracy: ${position.accuracy}
-                        Bearing:  ${position.heading}
-                        Speed: ${position.speed}
-                        Time: ${DateTime.now()}
-                      ''');
-              });
-            },
-            child: const Text('Start Location Service')),
-        ElevatedButton(
-            onPressed: () {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Location updates")),
+      body: Column(
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                Geolocator.getPositionStream(locationSettings: _appleSettings).listen((position) {
+                  debugPrint("position: ${position.toJson()}");
+                  debugPrint('''\n
+                          Latitude:  ${position.latitude}
+                          Longitude: ${position.longitude}
+                          Altitude: ${position.altitude}
+                          Accuracy: ${position.accuracy}
+                          Bearing:  ${position.heading}
+                          Speed: ${position.speed}
+                          Time: ${DateTime.now()}
+                        ''');
+                });
+              },
+              child: const Text('Start Location Service')),
+          ElevatedButton(
+              onPressed: () {
 
-            },
-            child: const Text('Stop Location Service')),
-        ElevatedButton(
-            onPressed: () {
+              },
+              child: const Text('Stop Location Service')),
+          ElevatedButton(
+              onPressed: () {
 
-            },
-            child: const Text('Get Current Location')),
-        ElevatedButton(
-            onPressed: () {
-              Geolocator.requestPermission().then((permission) {
-                debugPrint(permission.toString());
-              });
-            },
-            child: const Text('Get Permission')),
-      ],
+              },
+              child: const Text('Get Current Location')),
+          ElevatedButton(
+              onPressed: () {
+                Geolocator.requestPermission().then((permission) {
+                  debugPrint(permission.toString());
+                });
+              },
+              child: const Text('Get Permission')),
+        ],
+      ),
     );
   }
 }
